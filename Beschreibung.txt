@@ -1,0 +1,61 @@
+本文档是机器人铣削耦合仿真算法的核心，是2022年5月-12月断断续续的智力成果，也是不能言明的心酸悲苦
+本算法之所以复杂，主要是因为需要对螺旋刃铣刀进行动态铣削仿真
+
+本文档中的算法包括
+【FrequencyDivisionValidation】用于验证分频现象的文件夹
+【Main Accompanying peaks】用于验证主陪峰现象的文件夹
+
+【Cut系列】与铣削力仿真相关的程序
+【chip thickness】未变形切屑厚度计算核心算法！是本算法的重要创新点！
+【countF】用于刀具转数计数的函数
+【ForceCalculator】切削力计算类对象
+【ForceCoefficient】用于计算理论切削力的程序，实际情况下基本用不上
+【Simudt】用于生成标准时间微元的函数
+【SliceClass】螺旋刃刀具建模核心算法！刀片类对象建模，是本算法重要的创新点！
+【TipP】用于计算刀尖点位置的函数
+【WorN】刀齿工作状态判断函数！对于确定当前刀齿工作状态非常重要！
+【NewName】用于给变量批量重命名的程序
+
+【Observation系列】与图像观察相关的程序
+【belongto】图像分区用函数，后来好像用不大到了
+【cuttingslice】用于观察刀片仿真结果的函数
+【cutingTool】用于观察刀具仿真结果的函数
+【EEntropy】用于观察信号能量熵的函数
+【FFTSingleSlice】用于观察某种刀片仿真情况下的信号频谱
+【FFTSingleTool】用于观察某种刀具仿真情况下的信号频谱
+【FFTSlice】用于批量观察刀片仿真情况的信号频谱
+【FFTTool】用于批量观察刀具仿真情况的信号频谱
+【FPeakFind】用于寻找频谱共振峰的函数，原来用于寻找分频共振峰，现在已经不用了
+【LocalMean】用于计算局部平均值的函数，计算当前数据附近N个点的平均值，原来用于寻找分频共振峰，现在已经不用了
+【VibFind】用于判断振动的函数，现在已经不用了
+
+【Robot系列】与机器人动力学仿真相关的程序
+【dynode45】使用ode45方法求解机器人动力学的函数
+【GCC】用于计算机器人重力补偿的类对象，在本算法中没啥大用，因为本算法不计重力势能
+【inertia identification】机器人惯性参数识别结论，在算法中可以直接调用
+【LTraj】用于生成机器人均匀直线轨迹的函数
+【Model】定义了机器人所有动力学参数的程序，在算法中被直接调用，里面包含了本课题中几乎所有动力学参数的识别结果
+【V2col】将任意向量转化为列向量的函数
+【V2Row】将任意向量转化为行向量的函数
+
+【SimMill】纯铣削力仿真相关程序
+【slice】刀片铣削力仿真程序
+【tool】刀具铣削力仿真程序
+【tool_function】刀具铣削力仿真函数，曾用于批量生成未变形切屑厚度，以计算未变形切屑厚度比并作为稳定性判据，但是效果非常非常非常垃圾
+
+【SimRobot】机器人仿真相关程序
+【KUKAODEForce】KUKA机器人受迫振动仿真，使用ode45算法进行仿真
+【KUKAODEFree】KUKA机器人自由振动仿真，使用ode45算法进行仿真
+
+【SimRobotMill】机器人铣削仿真相关程序
+【KUKAODE_slice_UC/function】KUKA机器人刀片铣削力仿真程序和函数，UC代表unit circle，在整圆内计算未变形切屑厚度
+【KUKAODE_Tool_quarter/function】KUKA机器人螺旋刃铣刀铣削力仿真程序和函数，quarter代表1/4圆，在单一象限内计算未变形切屑厚度
+【sliceresultcapture】对机器人刀片铣削情况进行批量仿真的程序
+【Toolresultcapture】对机器人螺旋刃铣刀铣削情况进行批量仿真的程序
+
+本文档中的数据包括
+【CFSimulationResult】好久之前的切削力仿真结果，最新的仿真结果存放在实验室电脑和个人电脑的Result大文件夹中
+【programlog】编程日志，记录了编程过程中的心酸故事，卒读不禁让人悲从中来
+【Result】好久之前的各种各样的仿真结果，可能没啥用但是还是留着吧
+【IdenTrajectory a rpm_bc】N=a rpm，ap=bmm，每周期离散点数为c情况下机器人理论广义轨迹
+【RobotDK】通过柔性参数辨识得到的系统柔性参数矩阵，包括DK两个矩阵，不同编号表示不同版本，最后采用28N6版本
